@@ -10,21 +10,25 @@ class WordBreak {
             return true;
 
         if (status[start] != 0) {
-            return status[start] == 1;
+            return true;
         }
 
         for(int i = start+1; i <= s.length(); i++){
             String left = s.substring(start,i);
             if(wordDict.contains(left) && wordBreak(s, wordDict,i,status)){
-                return status[start] == 1;
+                status[start] = 1;
+                return true;
             }
         }
-        return status[start] == 0;
+        status[start] = 0;
+        return false;
     }
 
     public static void main (String[] args){
-        String testString = "catsandog";
-        List<String> wordDict = Arrays.asList("cats", "cat","sand","dog");
+        String testString = "applepenapple";
+        List<String> wordDict = Arrays.asList("apple","pen");
+        /*String testString = "leetcode";
+        List<String> wordDict = Arrays.asList("leet","code");*/
         int [] status = new int[testString.length()];
         int start = 0;
         boolean result = wordBreak(testString, wordDict,start,status);
